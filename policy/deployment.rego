@@ -20,5 +20,5 @@ deny[msg] {
   container := input.spec.template.spec.containers[_]
   not startswith(container.image, "demo")
 
-  msg := "Containers image must come from trusted registry"
+  msg := sprintf("Container image '%s' comes from untrusted registry", container.image)
 }
