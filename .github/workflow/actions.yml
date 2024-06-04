@@ -1,0 +1,15 @@
+name: Kubernetes PAC and Zero Trust Demo
+
+on: push
+name: Validate
+jobs:
+  conftest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: test
+      uses: instrumenta/conftest-action@master
+      with:
+        files: deployment.yaml
+
+    
