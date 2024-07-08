@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: silly-demo
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: silly-demo
+  template:
+    metadata:
+      labels:
+        app: silly-demo
+    spec:
+      containers:
+      - name: silly-demo
+        image: python:3.9-slim
+        command: ["python", "-m", "http.server", "8080", "--directory", "/html"]
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: html
+          mountPath: /html
+      volumes:
+      - name: html
+        configMap:
+          name: silly-demo-html
+          items:
+          - key: index.html
+            path: index.html
