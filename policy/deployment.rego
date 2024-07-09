@@ -2,9 +2,10 @@ package main
 
 deny[msg] {
   input.kind == "Deployment"
-  not input.spec.template.spec.securityContext.runAsNonRoot
+  container := input.spec.template.spec.containers[_]
+  not container.securityContext.runAsNonRoot == true
 
-  msg := "Containers securityContext must include runAsNonRoot"
+  msg := "Container securityContext must runAsNonRoot"
 }
 
 deny[msg] {
@@ -18,7 +19,15 @@ deny[msg] {
 deny[msg] {
   input.kind == "Deployment"
   container := input.spec.template.spec.containers[_]
-  not startswith(container.image, "demo")
+  not startswith(container.image, "trusted.registry.local/")
 
-  msg := sprintf("Container image '%s' comes from untrusted registry", container.image)
+  msg := sprintf("Container image '%s' comes from untrusted registry", [container.image])
+}
+
+deny[msg] {
+  input.kind == "Deployment"
+  container := input.spec.template.spec.containers[_]
+  container.securityContext.privileged == true
+
+  msg := sprintf("Privileged container '%s' is not allowed", [container.name])
 }

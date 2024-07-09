@@ -1,23 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: demo
 spec:
   replicas: 3
   selector:
     matchLabels:
-      tier: frontend
+      app: vulnerable-demo
   template:
     metadata:
       labels:
-        tier: frontend
+        app: vulnerable-demo
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
+      - name: vulnerable-demo
+        image: untrusted.registry.local/vulnerable-demo:latest
         ports:
         - containerPort: 80
         securityContext:
-          # runAsNonRoot is not set to true
+          privileged: true
           runAsUser: 0
-
