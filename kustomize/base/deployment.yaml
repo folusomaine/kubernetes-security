@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: silly-demo
+  name: cloudy-demo
   namespace: demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: silly-demo
+      app: cloudy-demo
   template:
     metadata:
       labels:
-        app: silly-demo
+        app: cloudy-demo
     spec:
       containers:
-      - name: silly-demo
+      - name: cloudy-demo
         image: python:3.9-slim
         command: ["python", "-m", "http.server", "8080", "--directory", "/html"]
         ports:
@@ -25,7 +25,7 @@ spec:
       volumes:
       - name: html
         configMap:
-          name: silly-demo-html
+          name: cloudy-demo-html
           items:
           - key: index.html
             path: index.html

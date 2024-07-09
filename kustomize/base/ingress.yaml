@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: silly-demo-ingress
+  name: cloudy-demo-ingress
   namespace: demo
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: silly-demo.local
+  - host: cloudy-demo.local
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: silly-demo
+            name: cloudy-demo
             port:
               number: 8080
