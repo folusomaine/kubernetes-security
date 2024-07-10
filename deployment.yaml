@@ -14,10 +14,9 @@ spec:
     spec:
       containers:
       - name: vulnerable-demo
-        image: trusted.registry.local/vulnerable-demo:latest
+        image: untrusted.registry.local/vulnerable-demo:latest
         ports:
         - containerPort: 80
         securityContext:
-          privileged: false
-          runAsUser: 1000
-          runAsNonRoot: true
+          privileged: true
+          runAsUser: 0
