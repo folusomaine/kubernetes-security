@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudy-demo
+  namespace: demo
+spec:
+  selector:
+    app: cloudy-demo
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080

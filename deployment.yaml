@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vulnerable-demo
+  template:
+    metadata:
+      labels:
+        app: vulnerable-demo
+    spec:
+      containers:
+      - name: vulnerable-demo
+        image: untrusted.registry.local/vulnerable-demo:latest
+        ports:
+        - containerPort: 80
+        securityContext:
+          privileged: true
+          runAsUser: 0

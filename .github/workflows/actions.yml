@@ -1,0 +1,21 @@
+name: Kubernetes Policy as Code Demo
+
+on: push
+jobs:
+  Validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install conftest
+        run: |
+          CONFTEST_VERSION=0.52.0
+          ARCH=$(arch)
+          SYSTEM=$(uname)
+          wget "https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_${SYSTEM}_${ARCH}.tar.gz"
+          tar xzf conftest_${CONFTEST_VERSION}_${SYSTEM}_${ARCH}.tar.gz
+          sudo mv conftest /usr/local/bin
+
+      - name: Checkout code
+        uses: actions/checkout@master
+
+      - name: conftest test
+        run: conftest test deployment.yaml

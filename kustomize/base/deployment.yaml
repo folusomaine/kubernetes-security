@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudy-demo
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudy-demo
+  template:
+    metadata:
+      labels:
+        app: cloudy-demo
+    spec:
+      containers:
+      - name: cloudy-demo
+        image: python:3.9-slim
+        command: ["python", "-m", "http.server", "8080", "--directory", "/html"]
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: html
+          mountPath: /html
+      volumes:
+      - name: html
+        configMap:
+          name: cloudy-demo-html
+          items:
+          - key: index.html
+            path: index.html
