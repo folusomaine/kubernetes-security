@@ -1,4 +1,4 @@
-name: Kubernetes PAC and Zero Trust Demo
+name: Kubernetes Policy as Code Demo
 
 on: push
 jobs:
