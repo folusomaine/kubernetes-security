@@ -2,7 +2,7 @@ name: Kubernetes Policy as Code Demo
 
 on: push
 jobs:
-  Validate:
+  Test:
     runs-on: ubuntu-latest
     steps:
       - name: install conftest
@@ -14,7 +14,7 @@ jobs:
           tar xzf conftest_${CONFTEST_VERSION}_${SYSTEM}_${ARCH}.tar.gz
           sudo mv conftest /usr/local/bin
 
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@master
 
       - name: conftest test
