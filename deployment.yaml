@@ -6,15 +6,15 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: vulnerable-demo
+      app: vulnerable-app-demo
   template:
     metadata:
       labels:
-        app: vulnerable-demo
+        app: vulnerable-app-demo
     spec:
       containers:
-      - name: vulnerable-demo
-        image: untrusted.registry.local/vulnerable-demo:latest
+      - name: vulnerable-app-demo
+        image: untrusted.registry.local/vulnerable-app-demo:latest
         ports:
         - containerPort: 80
         securityContext:
