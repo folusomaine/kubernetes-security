@@ -51,8 +51,16 @@ deny[msg] {
   input.kind == "Deployment"
   container := input.spec.template.spec.containers[_]
   container.securityContext
-  
+
   container.securityContext.privileged == true
 
   msg := sprintf("Privileged container '%s' is not allowed", [container.name])
+}
+
+deny[msg] {
+  input.kind == "Deployment"
+  container := input.spec.template.spec.containers[_]
+  container.ports[_].containerPort == 80
+
+  msg := sprintf("Container '%s' must not run on port 80", [container.name])
 }

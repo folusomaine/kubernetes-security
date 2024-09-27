@@ -14,9 +14,10 @@ spec:
     spec:
       containers:
       - name: vulnerable-app-demo
-        image: untrusted.registry.local/vulnerable-app-demo:latest
+        image: trusted.registry.local/vulnerable-app-demo:latest
         ports:
-        - containerPort: 80
+        - containerPort: 443
         securityContext:
-          privileged: true
-          runAsUser: 0
+          privileged: false
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
